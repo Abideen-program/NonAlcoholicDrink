@@ -1,5 +1,6 @@
 import { Component } from "react";
 import "./App.css";
+import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 
 class App extends Component {
@@ -46,21 +47,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        
-        <SearchBox 
-            className= {'drink-search-box'}
-            onChangeHandler = {onSearch}
-            placeholder = 'search your drinks'
+        <SearchBox
+          className={"drink-search-box"}
+          onChangeHandler={onSearch}
+          placeholder="search your drinks"
         />
 
-        {filteredDrinks.map((drink) => {
-          const { strDrink, idDrink } = drink;
-          return (
-            <div key={idDrink}>
-              <h1>{strDrink}</h1>
-            </div>
-          );
-        })}
+        <CardList drinks={filteredDrinks} />
       </div>
     );
   }
