@@ -1,6 +1,6 @@
 import { Component } from "react";
-
 import "./App.css";
+import SearchBox from "./components/search-box/search-box.component";
 
 class App extends Component {
   constructor() {
@@ -46,11 +46,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input
-          className="search box"
-          type="search"
-          placeholder="search your drink"
-          onChange={onSearch}
+        
+        <SearchBox 
+            className= {'drink-search-box'}
+            onChangeHandler = {onSearch}
+            placeholder = 'search your drinks'
         />
 
         {filteredDrinks.map((drink) => {
