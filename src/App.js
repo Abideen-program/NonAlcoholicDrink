@@ -8,6 +8,7 @@ class App extends Component {
 
     this.state = {
       drinks: [],
+      searchField: "",
     };
   }
 
@@ -17,32 +18,46 @@ class App extends Component {
     )
       .then((response) => response.json())
       .then((data) =>
-        this.setState(
-          () => {
-            return {
-              drinks: data.drinks,
-            };
-          },
-          () => {
-            console.log(this.state);
-          }
-        )
+        this.setState(() => {
+          return {
+            drinks: data.drinks,
+          };
+        })
       );
   }
 
+  onSearch = (event) => {
+    const searchString = event.target.value.toLowerCase();
+
+    this.setState(() => {
+      return {
+        searchField: searchString,
+      };
+    });
+  };
+
   render() {
+    const { drinks, searchField } = this.state;
+    const { onSearch } = this;
+
+    const filteredDrinks = drinks.filter((drink) => {
+      return drink.strDrink.toLowerCase().includes(searchField);
+    });
+
     return (
       <div className="App">
-        <input 
-        className="search box" 
-        type="search"
-        placeholder="search your drink"
+        <input
+          className="search box"
+          type="search"
+          placeholder="search your drink"
+          onChange={onSearch}
         />
 
-        {this.state.drinks.map((drink) => {
+        {filteredDrinks.map((drink) => {
+          const { strDrink, idDrink } = drink;
           return (
-            <div key={drink.idDrink}>
-              <h1>{drink.strDrink}</h1>
+            <div key={idDrink}>
+              <h1>{strDrink}</h1>
             </div>
           );
         })}
