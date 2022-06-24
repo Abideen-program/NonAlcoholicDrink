@@ -5,12 +5,19 @@ import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
 
+  const [drinks, setDrinks] =  useState([])
   const [searchField, setSeachField] = useState('');
 
   const onSearch = (event) => {
     const searchString = event.target.value.toLowerCase()
     setSeachField(searchString)
   }
+
+  useEffect( () => {
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic")
+    .then( (response) => response.json() )
+    .then( (data) => setDrinks(data.drinks) )
+  }, [])
 
   return (
     <div className="App">
