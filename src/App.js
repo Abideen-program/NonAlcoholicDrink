@@ -4,20 +4,30 @@ import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
-
-  const [drinks, setDrinks] =  useState([])
-  const [searchField, setSeachField] = useState('');
+  const [drinks, setDrinks] = useState([]);
+  const [searchField, setSeachField] = useState("");
+  const [filteredDrinks, setFilteredDrinks] = useState(drinks)
 
   const onSearch = (event) => {
-    const searchString = event.target.value.toLowerCase()
-    setSeachField(searchString)
-  }
+    const searchString = event.target.value.toLowerCase();
+    setSeachField(searchString);
+  };
 
-  useEffect( () => {
-    fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic")
-    .then( (response) => response.json() )
-    .then( (data) => setDrinks(data.drinks) )
-  }, [])
+  useEffect(() => {
+    fetch(
+      "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
+    )
+      .then((response) => response.json())
+      .then((data) => setDrinks(data.drinks));
+  }, []);
+
+  useEffect(() => {
+    const newFilteredDrinks = drinks.filter((drink) => {
+      return drink.strDrink.toLowerCase().includes(searchField);
+    });
+    console.log(newFilteredDrinks)
+    setFilteredDrinks(newFilteredDrinks)
+  }, [drinks, searchField]);
 
   return (
     <div className="App">
