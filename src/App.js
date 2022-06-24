@@ -5,16 +5,27 @@ import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
 
+  const [searchField, setSeachField] = useState('');
+
+  const onSearch = (event) => {
+    const searchString = event.target.value.toLowerCase()
+    setSeachField(searchString)
+  }
 
   return (
     <div className="App">
       <h2 className="app-title">Non-alcoholic drinks</h2>
-      
-            
-    </div>
-  )
 
-}
+      <SearchBox
+        className={"drink-search-box"}
+        onChangeHandler={onSearch}
+        placeholder="search your drinks"
+      />
+
+      <CardList drinks={filteredDrinks} />
+    </div>
+  );
+};
 
 // class App extends Component {
 //   constructor() {
