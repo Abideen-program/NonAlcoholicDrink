@@ -25,7 +25,6 @@ const App = () => {
     const newFilteredDrinks = drinks.filter((drink) => {
       return drink.strDrink.toLowerCase().includes(searchField);
     });
-    console.log(newFilteredDrinks)
     setFilteredDrinks(newFilteredDrinks)
   }, [drinks, searchField]);
 
